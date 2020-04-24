@@ -6,15 +6,15 @@ import (
 )
 
 func main() {
-	timen := time.Now()
-	hours := timen.Hour()
+	currentTime := time.Now()
+	currentHour := currentTime.Hour()
 	//fmt.Println(hours)
 
-	if hours >= 6 && hours < 12 {
+	if currentHour >= 6 && currentHour < 12 {
 		fmt.Println("Good Morning.")
-	} else if hours >= 12 && hours < 17 {
+	} else if currentHour >= 12 && currentHour < 17 {
 		fmt.Println("Good Afternoon.")
-	} else if hours >= 17 && hours < 20 {
+	} else if currentHour >= 17 && currentHour < 20 {
 		fmt.Println("Good Evening.")
 	} else {
 		fmt.Println("Good Night.")
