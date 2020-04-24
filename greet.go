@@ -8,7 +8,7 @@ import (
 func main() {
 	timen := time.Now()
 	hours := timen.Hour()
-	fmt.Println(hours)
+	//fmt.Println(hours)
 
 	if hours >= 6 && hours < 12 {
 		fmt.Println("Good Morning.")
