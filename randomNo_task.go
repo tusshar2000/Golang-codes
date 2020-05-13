@@ -17,10 +17,10 @@ func main() {
 	flag := false
 
 	for guess := 0; guess < 5; guess++ {
-		if guess == 4 { //5-4==1, used for correct usage of grammar, guess and guesses
-			fmt.Println("You have", 5-guess, "guess left!") //when 1 guess is left we need to use guess.
+		if guess == 4 { //5-4=1, used for correct usage of grammar, "guess" and "guesses".
+			fmt.Println("You have", 5-guess, "guess left!") //when 1 guess is left we use "guess" for correct grammar.
 		} else {
-			fmt.Println("You have", 5-guess, "guesses left!") //else use guesses.
+			fmt.Println("You have", 5-guess, "guesses left!") //else we use the word "guesses".
 		}
 		fmt.Println("Enter number")
 
