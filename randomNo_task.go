@@ -17,8 +17,8 @@ func main() {
 	flag := false
 
 	for guess := 0; guess < 5; guess++ {
-		//5-4=1, used for correct usage of grammar, "guess" and "guesses".
-		if guess == 4 {
+		//if-else loop used for correct usage of grammar, "guess" and "guesses".
+		if guess == 4 { //when guess=4, 5-guess becomes 1.
 			fmt.Println("You have", 5-guess, "guess left!") //when 1 guess is left we use "guess" for correct grammar.
 		} else {
 			fmt.Println("You have", 5-guess, "guesses left!") //else we use the word "guesses".
