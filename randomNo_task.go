@@ -3,44 +3,70 @@ package main
 import (
 	"fmt"
 	"log"
+	"math"
 	"math/rand"
 	"time"
 )
 
+func randomNumber() int {
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(50) + 1
+}
+
+func guessLeft(guess int) {
+	if guess == 4 {
+		fmt.Println("You have", 5-guess, "guess left!")
+	} else {
+		fmt.Println("You have", 5-guess, "guesses left!")
+	}
+}
+
+func checkGuess(number int, target int, flag *bool) string {
+	output := ""
+	if number <= 0 || number > 50 {
+		*flag = false
+		output += "Please enter a number between 1-50"
+		return output
+	}
+	if number == target {
+		*flag = true
+		output += "Congrats, you made the correct guess."
+		return output
+	} else if number < target {
+		*flag = false
+		output += "Your guess is low"
+	} else if number > target {
+		*flag = false
+		output += "Your guess is high"
+	}
+	if math.Abs(float64(number-target)) <= 5 {
+		output += " but close"
+	}
+	return output
+}
+
 func main() {
 	var number int
-
-	rand.Seed(time.Now().UnixNano()) //time seed used to generate random numbers upon every execution.
-	target := rand.Intn(50) + 1      //randomly generated target
-
+	target := randomNumber()
 	fmt.Println("Guess the target game starts")
 	flag := false
 
 	for guess := 0; guess < 5; guess++ {
-		//if-else loop used for correct usage of grammar, "guess" and "guesses".
-		if guess == 4 { //when guess=4, 5-guess becomes 1.
-			fmt.Println("You have", 5-guess, "guess left!") //when 1 guess is left we use "guess" for correct grammar.
-		} else {
-			fmt.Println("You have", 5-guess, "guesses left!") //else we use the word "guesses".
-		}
-		fmt.Println("Enter number")
-
-		_, err := fmt.Scanf("%d\n", &number) //user input guess
+		guessLeft(guess)
+		fmt.Println("Enter number:")
+		_, err := fmt.Scanf("%d\n", &number)
 		if err != nil {
 			log.Fatal(err)
 		}
-
-		if number < target {
-			fmt.Println("Your guess is low")
-		} else if number > target {
-			fmt.Println("Your guess is high")
-		} else {
-			flag = true
-			fmt.Println("Congrats, you made the correct guess.")
+		output := checkGuess(number, target, &flag)
+		if flag {
+			fmt.Println(output)
 			break
+		} else {
+			fmt.Println(output)
 		}
 	}
-	if flag == false {
+	if !flag {
 		fmt.Println("Sorry you couldn't guess, the number was:", target)
 	}
 
