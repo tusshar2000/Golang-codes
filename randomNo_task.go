@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func randomNumber() int {
+func targetNumberGenerator() int {
 	rand.Seed(time.Now().UnixNano())
 	return rand.Intn(50) + 1
 }
