@@ -51,7 +51,7 @@ func checkGuess(number int, target int, flag *bool) string {
 
 func main() {
 	var number int
-	target := randomNumber()
+	target := targetNumberGenerator()
 	fmt.Println("Guess the target game starts")
 	flag := false
 
