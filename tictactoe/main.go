@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	_ "reflect"
 	"strconv"
 	"strings"
 )
@@ -21,18 +20,19 @@ func game() {
 	turn := 1
 	gameOver := false
 	player1, player2 := playerNameInput()
+
 	for gameOver != true {
 		if turn%2 == 1 {
 			fmt.Printf("%s turn\n", player1)
 		} else {
 			fmt.Printf("%s turn\n", player2)
 		}
+
 		currentMove := askForPlay()
-
 		board = executePlayerMove(currentMove, turn, board)
-
 		result := resultAnalyzer(board)
 		presentBoard(board)
+
 		if result > 0 {
 			fmt.Printf("Player %d wins!\n\n", result)
 			gameOver = true
@@ -49,20 +49,18 @@ func game() {
 //func to take input names of players.
 func playerNameInput() (string, string) {
 	reader := bufio.NewReader(os.Stdin)
-	// var player1 string
-	// fmt.Scan(&player1)
+
 	fmt.Println("Enter name of player 1:")
 	player1, _ := reader.ReadString('\n')
 	player1 = strings.TrimSpace(player1)
-	// var player2 string
-	// fmt.Scan(&player2)
+
 	fmt.Println("Enter name of player 2:")
 	player2, _ := reader.ReadString('\n')
 	player2 = strings.TrimSpace(player2)
 	return player1, player2
 }
 
-//invoked only once at the starting to show user type of array.
+//invoked only once at the starting to show user the type of array used (3x3).
 func startBoard(board [9]int) {
 	for i, v := range board {
 		if v == 0 {
@@ -106,7 +104,7 @@ func askForPlay() int {
 	//fmt.Println(err)
 	//fmt.Println("1", err)
 	for err != nil {
-		fmt.Println("Please enter a number between 0-9.")
+		fmt.Println("Please enter a number between 0-8.")
 		fmt.Println("Select a move:")
 		reader = bufio.NewReader(os.Stdin)
 		text, _ = reader.ReadString('\n')
@@ -120,11 +118,10 @@ func askForPlay() int {
 func executePlayerMove(moveInt int, turn int, b [9]int) [9]int {
 	//out-of-bounds checker.
 	//for loop performed until condition satisfied.
-	for moveInt > 9 || moveInt < 0 {
-		fmt.Println("Please enter a number between 0-9.")
+	for moveInt > 8 || moveInt < 0 {
+		fmt.Println("Please enter a number between 0-8.")
 		moveInt = askForPlay()
 	}
-
 	// Check for occupied spaces
 	if b[moveInt] != 0 {
 		fmt.Println("Please pick an unoccupied space.")
@@ -132,9 +129,7 @@ func executePlayerMove(moveInt int, turn int, b [9]int) [9]int {
 		b = executePlayerMove(moveInt, turn, b)
 	} else {
 		/*player1 value is set to 1, for player2 value is set to 100.
-		This difference in values is kept to avoid false positives.
-		eg. Try replacing value of player2 by value 2 and replace line 162
-		by "else if v == 6", we get false positive.*/
+		This difference in values is kept to avoid false positives.*/
 		if turn%2 == 1 {
 			b[moveInt] = 1
 		} else {
